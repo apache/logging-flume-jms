@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="https://logging.apache.org/xml/ns"
+       xsi:schemaLocation="https://logging.apache.org/xml/ns https://logging.apache.org/xml/ns/log4j-changelog-0.xsd"
+       type="changed">
+  <description format="asciidoc">Only deserialize the `ObjectMessage` classes registered through the `org.apache.flume.source.jms.JMSObjectMessageClassProvider` service provider interface. Boxed primitives, `String`, `BigInteger` and `BigDecimal` are allowed by default; all other classes must be registered. If the deserialization filter factory cannot be installed, start the JVM with `-Djdk.serialFilterFactory=org.apache.flume.source.jms.JMSObjectMessageFilter`.</description>
+</entry>
