@@ -48,7 +48,9 @@ import org.apache.flume.event.SimpleEvent;
  * configured.</p>
  * <p><strong>ObjectMessage:</strong> Object is written to
  *  an ByteArrayOutputStream wrapped by an ObjectOutputStream
- *  and the resulting byte array is the body of the message.</p>
+ *  and the resulting byte array is the body of the message.
+ *  Only the classes registered by {@link JMSObjectMessageClassProvider}
+ *  services are deserialized: see {@link JMSObjectMessageFilter}.</p>
  */
 public class DefaultJMSMessageConverter implements JMSMessageConverter {
 
@@ -100,7 +102,7 @@ public class DefaultJMSMessageConverter implements JMSMessageConverter {
             }
         } else if (message instanceof ObjectMessage) {
             ObjectMessage objectMessage = (ObjectMessage) message;
-            Object object = objectMessage.getObject();
+            Object object = JMSObjectMessageFilter.getObject(objectMessage);
             if (object != null) {
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
                 ObjectOutput out = null;

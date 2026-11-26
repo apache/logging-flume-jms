@@ -129,6 +129,8 @@ public class JMSSource extends AbstractPollableSource implements BatchSizeSuppor
     // JNDI names are validated by `verifyContext` before each lookup
     @SuppressWarnings("BanJNDI")
     protected void doConfigure(Context context) throws FlumeException {
+        // Install the ObjectMessage filter early: the JDK refuses it once an ObjectInputStream was created
+        JMSObjectMessageFilter.install();
         sourceCounter = new SourceCounter(getName());
 
         initialContextFactoryName = context.getString(JMSSourceConfiguration.INITIAL_CONTEXT_FACTORY, "")
